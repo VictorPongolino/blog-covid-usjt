@@ -1,6 +1,6 @@
-var express = require('express'); // Retorna uma função.
-var consign = require('consign');
-var path = require('path');
+const express = require('express'); // Retorna uma função.
+const consign = require('consign');
+const path = require('path');
 
 
 var app = express();
@@ -13,6 +13,8 @@ app.use(express.static(pathPublic));
 
 consign()
     .include("src/routes")
+    .then("src/config/db.js")
+    .then("src/models")
     .into(app);
 
 
