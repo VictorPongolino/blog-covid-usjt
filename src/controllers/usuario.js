@@ -7,7 +7,7 @@ module.exports = (application) => {
             const resultado = await sequelize.findAll({
                 limit: 1,
                 where: {
-                   id: id 
+                   id
                 } 
             })
             .then(valor => {
@@ -48,7 +48,7 @@ module.exports = (application) => {
             {
                 limit: 1,
                 where: {
-                    id: id 
+                    id
                 } 
             })
             .then(valor => {
@@ -68,7 +68,7 @@ module.exports = (application) => {
             const resultado = await sequelize.delete({
                 limit: 1,
                 where: {
-                   id: id 
+                   id
                 } 
             })
             .then(valor => {

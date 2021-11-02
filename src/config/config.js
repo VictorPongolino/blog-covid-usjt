@@ -14,10 +14,11 @@ app.use(express.static(pathPublic));
 consign()
     .include("src/routes")
     .then("src/config/db.js")
+    .then("src/config/sequelize.js")
     .then("src/models")
     .into(app);
 
 
 console.log("Configurações carregadas!");
 
-module.exports = app;
+module.exports = app; 

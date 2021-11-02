@@ -1,8 +1,11 @@
 const { Sequelize } = require('sequelize');
 
-module.exports = (application) => {
-    const sequelize = application.src.models.sequelize;
-    return sequelize.define("usuario", {
+const Usuario = (application) => {
+    const sequelize = application.src.config.sequelize;
+    const artigo = application.src.models.artigo;
+    console.log("Pegando de Usuário",application.src.models)
+
+    this.usuario = sequelize.define("usuario", {
 
         id: { 
             type: Sequelize.INTEGER, 
@@ -58,4 +61,11 @@ module.exports = (application) => {
 
 
     });
+
+    this.usuario.hasMany(artigo);
+    artigo.belongsTo(this.usuario);
+
+    return this.usuario;
 };
+
+module.exports = Usuario;
