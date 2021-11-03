@@ -1,25 +1,25 @@
-exports.getFirst5 = async (req, res) => {
-    console.log("Obtendo ...!")
-    res.render('home/index', { 
-        carrossel: [{ 
-            titulo: "IMPORTANTE: Orientações de Vacinação!",
-            descricao: "Descrevendo alguma coisa *teste",
-            slug: "teste"
-        }],
-        noticias: [{
-            titulo: "ABC",
-            descricao: "DESC",
-            slug: "teste"
-        },
-        {
-            titulo: "COVID-19",
-            descricao: "Um artigo falando sobre COVID",
-            slug: "teste2"
-        },
-        {
-            titulo: "OUTRO ARTIGO",
-            descricao: "um artigo de teste",
-            slug: "teste3"
-        }]
-    });
-}
+module.exports = (application) => {
+    const artigo = application.src.models.artigo;
+
+    this.getFirst5 = async (req, res) => {
+        try {
+            const resultado = await artigo.findAll({
+                limit: 5,
+                attributes: ["titulo", "descricao", "body"],
+                order: [
+                    ['id', 'DESC']
+                ]
+            }).then(resultado => {
+                res.render("home/index", {
+                    noticias: resultado
+                });
+            }).catch(erro => {
+                console.error(`Falha no retorno dos artigos (async) ${erro}`);
+            })
+        } catch (error) {
+            console.error(`Falha ao tentar buscar artigos (sync) ${error}`);
+        }
+    }
+
+    return this;
+};

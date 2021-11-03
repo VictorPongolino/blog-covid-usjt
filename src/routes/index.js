@@ -1,5 +1,6 @@
-
-const controller = require("../controllers/artigo");
 module.exports = function(application) {
-    application.get('/', controller.getFirst5);
+    console.log(application.src.controllers)
+    console.log("DEPOIS\n\n",application.src.controllers.artigo)
+    const controllerArtigo = application.src.controllers.artigo;
+    application.get('/', controllerArtigo.getFirst5);
 }

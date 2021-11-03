@@ -12,11 +12,11 @@ console.log(`Arquivos estáticos definido em "${pathPublic}"`);
 app.use(express.static(pathPublic));
 
 consign()
-    .include("src/routes")
-    .then("src/config/db.js")
+    .include("src/config/db.js")
     .then("src/config/sequelize.js")
     .then("src/models")
-    .then("src/controllers")
+    .then("src/controllers")    
+    .then("src/routes")
     .into(app);
 
 
