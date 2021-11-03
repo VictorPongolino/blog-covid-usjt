@@ -9,55 +9,41 @@
     </head>
     <body>
         <div class="container px-4 px-lg-5">
-            <div class="row gx-4 gx-lg-5 align-items-center my-5">
-                <div class="col-lg-7"><img class="img-fluid rounded mb-4 mb-lg-0" src="https://dummyimage.com/900x400/dee2e6/6c757d.jpg" alt="..." /></div>
-                <div class="col-lg-5">
-                    <h1 class="font-weight-light">Título</h1>
-                    <p>Artigos mais visualizados irão aparecer aqui</p>
-                    <a class="btn btn-primary" href="#!">VER</a>
-                </div>
-            </div>
-
-            <div class="row gx-4 gx-lg-5">
-
-                <div class="col-md-4 mb-6">
-                    <div class="card h-100">
-                        <img src="https://dummyimage.com/286x180/000/fff" class="img-thumbnail" alt="...">
- 
-                        <div class="card-body">
-                            <h2 class="card-title">Título Artigo</h2>
-                            <p class="card-text">Conteúdo do artigo</p>
-                        </div>
-                        <div class="card-footer"><a class="btn btn-primary btn-sm" href="#!">Veja mais</a></div>
+        <% if (locals.carrossel) { %>
+            <% for (let i = 0; i < carrossel.length; i++) { %>          
+                <div class="row gx-4 gx-lg-5 align-items-center my-5">
+                    <div class="col-lg-7"><img class="img-fluid rounded mb-4 mb-lg-0" src="https://dummyimage.com/900x400/dee2e6/6c757d.jpg" alt="..." /></div>
+                    <div class="col-lg-5">
+                        <h1 class="font-weight-light"><%= carrossel[i].titulo %></h1>
+                        <p><%= carrossel[i].descricao %></p>
+                        <a class="btn btn-primary" href="<%= carrossel[i].slug %>">Veja mais</a>
                     </div>
                 </div>
+            <% } %>
+        <% } %>
+        
+        <% if (locals.noticias) { %>
+                <div class="row gx-4 gx-lg-5">
+                <% for (let i = 0; i < noticias.length; i++) { %>
+                    <div class="col-md-4 mb-6">
+                        <div class="card h-100">
+                            <img src="https://dummyimage.com/286x180/000/fff" class="img-thumbnail" alt="...">
 
-                <div class="col-md-4 mb-6">
-                    <div class="card h-100">
-                        <img src="https://dummyimage.com/286x180/000/fff" class="img-thumbnail" alt="...">
- 
-                        <div class="card-body">
-                            <h2 class="card-title">Título Artigo</h2>
-                            <p class="card-text">Conteúdo do artigo</p>
+                            <div class="card-body">
+                                <h2 class="card-title"><%= noticias[i].titulo %></h2>
+                                <p class="card-text"><%= noticias[i].descricao %></p>
+                            </div>
+                            <div class="card-footer"><a class="btn btn-primary btn-sm" href="<%= noticias[i].slug %>">Veja mais</a></div>
                         </div>
-                        <div class="card-footer"><a class="btn btn-primary btn-sm" href="#!">Veja mais</a></div>
                     </div>
+                <% } %>
                 </div>
+        <% } else { %>
+            Não encontramos nada!
+        <% } %>
 
-                <div class="col-md-4 mb-6">
-                    <div class="card h-100">
-                        <img src="https://dummyimage.com/286x180/000/fff" class="img-thumbnail" alt="...">
- 
-                        <div class="card-body">
-                            <h2 class="card-title">Título Artigo</h2>
-                            <p class="card-text">Conteúdo do artigo</p>
-                        </div>
-                        <div class="card-footer"><a class="btn btn-primary btn-sm" href="#!">Veja mais</a></div>
-                    </div>
-                </div>
-            </div>
         </div>
-
+                
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
         <script src="js/home/scripts.js"></script>
     </body>

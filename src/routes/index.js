@@ -1,6 +1,5 @@
 
-module.exports = function(app) {
-    app.get('/', (req, res) => {
-        res.render("home/index");
-    });
+const controller = require("../controllers/artigo");
+module.exports = function(application) {
+    application.get('/', controller.getFirst5);
 }

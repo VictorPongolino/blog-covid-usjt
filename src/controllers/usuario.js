@@ -1,10 +1,10 @@
 module.exports = (application) => {
-    const sequelize = application.src.models.sequelize;
+    const usuario = application.src.models.usuario;
 
     this.get = async (req, res) => {
         try {
             const { id } = req.params;
-            const resultado = await sequelize.findAll({
+            const resultado = await usuario.findAll({
                 limit: 1,
                 where: {
                    id
@@ -16,6 +16,10 @@ module.exports = (application) => {
             .catch(error => {
                 console.error(`Falha ao buscar usuário ${error}`);
             });
+            
+            
+
+
         } catch (error) {
             console.error(`Falha ao buscar usuário ${error}`);
         }
@@ -23,7 +27,7 @@ module.exports = (application) => {
 
     this.create = async (req, res) => {
         try {
-            const resultado = await sequelize.create({
+            const resultado = await usuario.create({
                 // TODO: Setar atributos.
             })
             .then(valor => {
@@ -40,7 +44,7 @@ module.exports = (application) => {
     this.update = async (req, res) => {
         try {
             const { id } = req.params;
-            const resultado = await sequelize.update(
+            const resultado = await usuario.update(
             {
                 // TODO: Setar atributos.
             },
@@ -65,7 +69,7 @@ module.exports = (application) => {
     this.delete = async (req, res) => {
         try {
             const { id } = req.params;
-            const resultado = await sequelize.delete({
+            const resultado = await usuario.delete({
                 limit: 1,
                 where: {
                    id
@@ -81,4 +85,6 @@ module.exports = (application) => {
             console.error(`Falha ao deletar usuário ${error}`);
         }
     }
+
+    return this;
 };

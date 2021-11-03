@@ -10,6 +10,11 @@ const Artigo = (application) => {
             primaryKey: true
         },
 
+        slug: {
+            type: Sequelize.STRING,
+            allowNull: false,
+        },
+
         titulo: {
             type: Sequelize.STRING,
             allowNull: false

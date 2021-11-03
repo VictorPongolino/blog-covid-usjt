@@ -16,6 +16,7 @@ consign()
     .then("src/config/db.js")
     .then("src/config/sequelize.js")
     .then("src/models")
+    .then("src/controllers")
     .into(app);
 
 
