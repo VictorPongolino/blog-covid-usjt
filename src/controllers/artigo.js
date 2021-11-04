@@ -6,6 +6,9 @@ module.exports = (application) => {
             artigo.findAll({
                 limit: 5,
                 attributes: ["titulo", "descricao", "body", "slug"],
+                where: {
+                    status: "APROVADO"
+                },
                 order: [
                     ['id', 'DESC']
                 ]
@@ -49,7 +52,7 @@ module.exports = (application) => {
     this.update = async (req, res) => {
         try {
             const { id } = req.params;
-            artigo.update(req.params,
+            artigo.update(req.body,
             {
                 limit: 1,
                 where: {
@@ -68,6 +71,30 @@ module.exports = (application) => {
         }
     }
 
+
+    this.deletar = async (req, res) => {
+        try {
+            const { id } = req.params;
+            artigo.update({
+                status: "DELETADO", 
+            },
+            {
+                limit: 1,
+                where: {
+                    id
+                }
+            }).then(resultado => {
+                res.sendStatus(200);
+                /* TODO */
+            }).catch(erro => {
+                console.error(`Falha na tentativa de deletar um artigo (async) ${erro}`);
+                res.sendStatus(500);
+            })
+        } catch (error) {
+            console.error(`Falha na tentativa de deletar um artigo (sync) ${error}`);
+            res.sendStatus(500);
+        }
+    }
 
 
     return this;
