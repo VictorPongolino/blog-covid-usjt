@@ -36,14 +36,39 @@ module.exports = (application) => {
                     artigo: resultado.dataValues
                 });
             }).catch(erro => {
-                console.error(`Falha no retorno dos artigos (async) ${erro}`);
+                console.error(`Falha no retorno de um artigo (async) ${erro}`);
                 res.sendStatus(500);
             })
         } catch (error) {
-            console.error(`Falha ao tentar buscar artigos (sync) ${error}`);
+            console.error(`Falha ao tentar buscar um artigo (sync) ${error}`);
             res.sendStatus(500);
         }
     }
+
+
+    this.update = async (req, res) => {
+        try {
+            const { id } = req.params;
+            artigo.update(req.params,
+            {
+                limit: 1,
+                where: {
+                    id
+                }
+            }).then(resultado => {
+                res.sendStatus(200);
+                /* TODO */
+            }).catch(erro => {
+                console.error(`Falha na tentativa de atualizar um artigo (async) ${erro}`);
+                res.sendStatus(500);
+            })
+        } catch (error) {
+            console.error(`Falha na tentativa de atualizar um artigo (sync) ${error}`);
+            res.sendStatus(500);
+        }
+    }
+
+
 
     return this;
 };
