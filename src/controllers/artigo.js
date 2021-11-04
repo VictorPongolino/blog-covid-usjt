@@ -3,7 +3,7 @@ module.exports = (application) => {
 
     this.getFirst5 = async (req, res) => {
         try {
-            const resultado = await artigo.findAll({
+            artigo.findAll({
                 limit: 5,
                 attributes: ["titulo", "descricao", "body", "slug"],
                 order: [
@@ -26,20 +26,22 @@ module.exports = (application) => {
     this.getBySlug = async (req, res) => {
         try {
             const { slug } = req.params;
-            const resultado = await artigo.findOne({
+            artigo.findOne({
                 attributes: ["titulo", "descricao", "body"],
                 where: {
                     slug
                 }
             }).then(resultado => {
-                res.render("home/index", {
-                    artigo: resultado
+                res.render("artigo/artigo", { 
+                    artigo: resultado.dataValues
                 });
             }).catch(erro => {
                 console.error(`Falha no retorno dos artigos (async) ${erro}`);
+                res.sendStatus(500);
             })
         } catch (error) {
             console.error(`Falha ao tentar buscar artigos (sync) ${error}`);
+            res.sendStatus(500);
         }
     }
 
