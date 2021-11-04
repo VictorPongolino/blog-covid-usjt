@@ -7,6 +7,11 @@ var app = express();
 app.set("view engine", "ejs"); // Engine que irá processar os htmls
 app.set("views", "./src/views/"); // Local aonde as views estão.
 
+app.use(express.json());
+app.use(express.urlencoded({
+  extended: true
+}));
+
 const pathPublic = path.join(__dirname, "..", "public");
 console.log(`Arquivos estáticos definido em "${pathPublic}"`);
 app.use(express.static(pathPublic));
