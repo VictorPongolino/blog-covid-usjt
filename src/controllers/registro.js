@@ -8,27 +8,36 @@ module.exports = (application) => {
 
     this.registrar = async (req, res) => {
         try {
-            const { nome, email, senha } = req.body;
-            const errors = validationResult(req.body);
-            if (errors.isEmpty()) {
-                usuario.create({
-                    nome,
-                    email,
-                    senha: bcrypt.hashSync(senha, bcrypt.genSaltSync(10))
-                });
-                console.log("Registrado com sucesso!");
-                
-                req.session.user = {
-                    id: usuario.id,
-                    email
-                }
+            console.log(req.method)
+            if (req.method == "POST") {
+                const { nome, email, senha, confirmar_senha } = req.body;   
+                const errors = validationResult(req);
+                if (errors.isEmpty()) { 
+                    console.log("ENTREIEIIIII")
+                    // await usuario.create({
+                    //     nome,
+                    //     email,
+                    //     senha: bcrypt.hashSync(senha, bcrypt.genSaltSync(10))
+                    // });
+                    // console.log("Registrado com sucesso!");
+                    
+                    // req.session.user = {
+                    //     id: usuario.id,
+                    //     email
+                    // }
 
+                } else {
+                    console.log("ERROSSSSS",errors.array());
+                    res.redirect("/");
+                }
             } else {
-                res.redirect("/");
+                res.render("login/registro");
             }
         } catch (error) {
-            console.log("Não foi possível registrar usuário em sync!\n"+error);
+            console.log("Não foi possível registrar usuário em sync!\nERRO:"+error);
             res.redirect("/");
         }
     }
+
+    return this;
 }

@@ -8,38 +8,44 @@ module.exports = (application) => {
 
     this.login = async (req, res) => {
         try {
-            const { email, senha } = req.body;
-            const error = validationResult(req);
-            if (error.isEmpty()) {
-                usuario.findOne({ 
-                    where: {
-                        email
-                    }
-                }).then(user => {
-                    if (user != undefined) {
-                        const resultadoHash = bcrypt.compareSync(senha, user.senha);
-                        if (resultadoHash != false) {
-                            req.session.user = {
-                                id: user.id,
-                                email,
+            if (req.method == "POST") {
+                const { email, senha } = req.body;
+                const error = validationResult(req);
+                if (error.isEmpty()) {
+                    usuario.findOne({ 
+                        where: {
+                            email
+                        }
+                    }).then(user => {
+                        if (user != undefined) {
+                            const resultadoHash = bcrypt.compareSync(senha, user.senha);
+                            if (resultadoHash != false) {
+                                req.session.user = {
+                                    id: user.id,
+                                    email,
+                                }
+
+                                console.log("Logado com sucesso!")
+
+                            } else {
+                                res.redirect("/login");
                             }
-
-                            console.log("Logado com sucesso!")
-
                         } else {
                             res.redirect("/login");
                         }
-                    } else {
-                        res.redirect("/login");
-                    }
-                }).catch(error => {
-
-                });
+                    }).catch(error => {
+                        console.log("Não foi possível logar usuário!\n" + error)
+                    });
+                } else {
+                    res.redirect("/login");
+                }
             } else {
                 res.redirect("/login");
             }
         } catch (error) {
-
+            console.log("Não foi possível logar usuário!\n" + error)
         }
     }
+
+    return this;
 }

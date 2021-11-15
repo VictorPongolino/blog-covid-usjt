@@ -13,13 +13,7 @@ module.exports = {
         isLength: {
             errorMessage: "Título deve conter de 15 a 100 caracteres !",
             options: { min: 15, max: 100},
-        },
-
-        // custom: {
-        //     options: valor => {
-
-        //     }
-        // }
+        }
     },
 
     descricao: {

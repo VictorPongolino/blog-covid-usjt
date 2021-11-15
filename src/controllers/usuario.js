@@ -1,31 +1,34 @@
 module.exports = (application) => {
     const usuario = application.src.models.usuario;
 
-    this.get = async (req, res) => {
+    this.get = async (id) => {
         try {
-            const { id } = req.params;
-            const resultado = await usuario.findAll({
+            return usuario.findAll({
                 limit: 1,
                 where: {
                    id
                 } 
             })
-            .then(valor => {
-                return valor;
-            })
-            .catch(error => {
-                console.error(`Falha ao buscar usuário ${error}`);
-            });
-
         } catch (error) {
             console.error(`Falha ao buscar usuário ${error}`);
         }
     }
 
-    this.update = async (req, res) => {
+    this.findUserByEmail = async (email) => {
         try {
-            const { id } = req.params;
-            const resultado = await usuario.update(
+            return usuario.findOne({
+                where: {
+                   email
+                } 
+            })
+        } catch (error) {
+            console.error(`Falha ao buscar usuário pelo email ${error}`);
+        }
+    }
+
+    this.update = async (id) => {
+        try {
+            return usuario.update(
             {
                 // TODO: Setar atributos.
             },
@@ -36,32 +39,19 @@ module.exports = (application) => {
                     id
                 } 
             })
-            .then(valor => {
-                return valor;
-            })
-            .catch(error => {
-                console.error(`Falha ao atualizar usuário ${error}`);
-            });
         } catch (error) {
             console.error(`Falha ao atualizar usuário ${error}`);
         }
     }
 
-    this.delete = async (req, res) => {
+    this.delete = async (id) => {
         try {
-            const { id } = req.params;
-            const resultado = await usuario.delete({
+            return usuario.delete({
                 limit: 1,
                 where: {
                    id
                 } 
             })
-            .then(valor => {
-                return valor;
-            })
-            .catch(error => {
-                console.error(`Falha ao deletar usuário ${error}`);
-            });
         } catch (error) {
             console.error(`Falha ao deletar usuário ${error}`);
         }

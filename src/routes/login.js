@@ -1,6 +1,5 @@
-
-module.exports = function(app) {
-    app.get("/login", (req, res) => {
-        res.render("login/login");
-    });
+module.exports = function(application) {
+    const controllerLogin = application.src.controllers.login;
+    application.get('/login', controllerLogin.login);
+    application.post('/login', controllerLogin.login);
 }
