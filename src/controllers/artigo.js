@@ -1,3 +1,6 @@
+const { validationResult } = require("express-validator");
+const { default: slugify } = require("slugify");
+
 module.exports = (application) => {
     const artigo = application.src.models.artigo;
 
@@ -48,6 +51,42 @@ module.exports = (application) => {
         }
     }
 
+
+    this.criar = async (req, res) => {
+        res.render("artigo/criar");
+    }
+
+    this.enviar = async (req, res) => {
+        try {
+            const { titulo, descricao, textarea_blog } = req.body;
+            const errors = validationResult(req);
+            if (errors.isEmpty() == false) {
+                console.log(errors.array()); //  TODO: Criar um erro por flash (cookies)     
+                return;
+            }
+
+            artigo.create({
+                /* Recomenda-se a nomeação explícita dos nomes das colunas no JSON para evitar problemas caso haver alteração 
+                    no nome das variáveis no HTML 
+                */
+
+                titulo: titulo,
+                descricao: descricao,
+                slug: slugify(titulo, { lower: true, trim: true }),
+                body: textarea_blog,
+            })
+                .then(valor => {
+                    res.redirect("/");
+                }).catch(error => {
+                    console.log("Não foi possível criar um artigo (async)\n" + error)
+                    res.sendStatus(500);
+                });
+
+        } catch (error) {
+            console.log("Não foi possível criar um artigo (sync)\n" + error)
+            res.sendStatus(500);
+        }
+    }
 
     this.update = async (req, res) => {
         try {

@@ -1,4 +1,5 @@
-const express = require('express'); // Retorna uma função.
+const express = require('express'); 
+// const expressValidator = require('express-validator')
 const consign = require('consign');
 const path = require('path');
 
@@ -6,6 +7,8 @@ const path = require('path');
 var app = express();
 app.set("view engine", "ejs"); // Engine que irá processar os htmls
 app.set("views", "./src/views/"); // Local aonde as views estão.
+
+// app.use(expressValidator());
 
 app.use(express.json());
 app.use(express.urlencoded({
