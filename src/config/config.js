@@ -2,13 +2,18 @@ const express = require('express');
 // const expressValidator = require('express-validator')
 const consign = require('consign');
 const path = require('path');
-
+var session = require('express-session');
 
 var app = express();
 app.set("view engine", "ejs"); // Engine que irá processar os htmls
 app.set("views", "./src/views/"); // Local aonde as views estão.
 
 // app.use(expressValidator());
+
+app.use(session({
+  secret: 'OIm~X+CioJCu+IWqspf,Sus}d_tAhUl]Pay#wx}D&H%wt$ZR8R',
+  cookie: { maxAge: 900000 } 
+}))
 
 app.use(express.json());
 app.use(express.urlencoded({

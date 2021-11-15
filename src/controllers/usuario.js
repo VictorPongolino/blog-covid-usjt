@@ -16,28 +16,9 @@ module.exports = (application) => {
             .catch(error => {
                 console.error(`Falha ao buscar usuário ${error}`);
             });
-            
-            
-
 
         } catch (error) {
             console.error(`Falha ao buscar usuário ${error}`);
-        }
-    }
-
-    this.create = async (req, res) => {
-        try {
-            const resultado = await usuario.create({
-                // TODO: Setar atributos.
-            })
-            .then(valor => {
-                return valor;
-            })
-            .catch(error => {
-                console.error(`Falha ao atualizar usuário ${error}`);
-            });
-        } catch (error) {
-            console.error(`Falha ao atualizar usuário ${error}`);
         }
     }
 
