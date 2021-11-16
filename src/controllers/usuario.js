@@ -27,34 +27,11 @@ module.exports = (application) => {
         }
     }
 
-    this.update = async (id) => {
+    this.criar = async (registros) => {
         try {
-            return usuario.update(
-            {
-                // TODO: Setar atributos.
-            },
-
-            {
-                limit: 1,
-                where: {
-                    id
-                } 
-            })
+            return usuario.create(registros);
         } catch (error) {
-            console.error(`Falha ao atualizar usuário ${error}`);
-        }
-    }
-
-    this.delete = async (id) => {
-        try {
-            return usuario.delete({
-                limit: 1,
-                where: {
-                   id
-                } 
-            })
-        } catch (error) {
-            console.error(`Falha ao deletar usuário ${error}`);
+            console.error(`Falha ao criar usuário ${error}`);
         }
     }
 

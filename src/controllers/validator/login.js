@@ -1,7 +1,6 @@
 const {check} = require('express-validator');
 
 module.exports = (application) => {
-    const usuario = application.src.controllers.usuario;
     return {
             validadorLogin : [
 
@@ -11,7 +10,7 @@ module.exports = (application) => {
                     .trim()
                     .isEmail()
                     .withMessage("Email inválido"),
-
+ 
                 check("senha")
                     .exists()
                     .withMessage("Senha inválida!")
