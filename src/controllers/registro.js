@@ -13,7 +13,6 @@ module.exports = (application) => {
                 const { nome, email, senha, confirmar_senha } = req.body;   
                 const errors = validationResult(req);
                 if (errors.isEmpty()) { 
-                    console.log("ENTREIEIIIII")
                     // await usuario.create({
                     //     nome,
                     //     email,
@@ -27,15 +26,15 @@ module.exports = (application) => {
                     // }
 
                 } else {
-                    console.log("ERROSSSSS",errors.array());
-                    res.redirect("/");
+                    console.log(errors.array());
+                    res.redirect("/registrar");
                 }
             } else {
                 res.render("login/registro");
             }
         } catch (error) {
             console.log("Não foi possível registrar usuário em sync!\nERRO:"+error);
-            res.redirect("/");
+            res.redirect("/registrar");
         }
     }
 

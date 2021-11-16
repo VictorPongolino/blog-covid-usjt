@@ -9,7 +9,7 @@ module.exports = (application) => {
                     .exists()
                     .withMessage("Nome é requirido!")
                     .trim()
-                    .isLength({min: 5, min: 50})
+                    .isLength({min: 5, max: 50})
                     .withMessage("Nome de 5-50 caracteres !"),
 
                 check("email")
@@ -20,27 +20,32 @@ module.exports = (application) => {
                     .withMessage("Email inválido")
                     .custom(valor => {
                         return usuario.findUserByEmail(valor).then(valor => {
-                            Promise.reject(`Email '${valor}' já existe!'`)
-                        })
+                            if (valor !== null) {
+                                return Promise.reject(`Email '${valor}' já existe!'`)
+                            }
+
+                            return true;
+                        });
                 }),
 
                 check("senha")
                     .exists()
                     .withMessage("Senha é requirido!")
                     .trim()
-                    .isLength({ min: 5, max: 15})
-                    .withMessage("Senha deve ter de 5-10 caracteres !"),
+                    .isLength({min: 5, max: 15})
+                    .withMessage("Limite de caracteres é de 5-15 !"),
+
 
                 check("confirmar_senha")
                     .exists()
                     .withMessage("Confirme a senha!")
                     .notEmpty()     
                     .custom((valor, {req}) => {
-                        if (value !== req.body.password) {
+                        if (valor !== req.body.senha) {
                             throw new Error('Senhas não são iguais!');
-                          }
+                        }
 
-                          return true;
+                        return true;
                     })
                     .withMessage("As senhas devem ser idênticas !"),
                 
