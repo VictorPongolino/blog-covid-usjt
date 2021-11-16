@@ -9,7 +9,6 @@ module.exports = (application) => {
     this.registrar = async (req, res) => {
         const usuario = application.src.controllers.usuario; // Auto-Loader não carregou mas neste ponto ele carregou.
         try {
-            console.log(req.method)
             if (req.method == "POST") {
                 const { nome, email, senha } = req.body;   
                 const errors = validationResult(req);
@@ -42,7 +41,7 @@ module.exports = (application) => {
                     res.redirect("/registrar");
                 }
             } else {
-                res.render("login/registro");
+                res.render("login/registro", { csrfToken: req.csrfToken() });
             }
         } catch (error) {
             console.log("Não foi possível registrar usuário em sync!\nERRO:"+error);

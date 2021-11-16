@@ -53,7 +53,7 @@ module.exports = (application) => {
 
 
     this.criar = async (req, res) => {
-        res.render("artigo/criar");
+        res.render("artigo/criar", { csrfToken: req.csrfToken() });
     }
 
     this.enviar = async (req, res) => {

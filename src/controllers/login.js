@@ -11,7 +11,6 @@ module.exports = (application) => {
                 if (error.isEmpty()) {
                     usuario.findUserByEmail(email).then(user => {
                         if (user !== null) {
-                            console.log("Encontrado!")
                             const isSenhaIgual = bcrypt.compareSync(senha, user.senha);
                             if (isSenhaIgual) {
                                 req.session.user = {
@@ -20,24 +19,23 @@ module.exports = (application) => {
                                 }
                                 console.log("Logado com sucesso!");
                             } else {
-                                console.log("Senha incorreta!");
                                 res.redirect("/login");
                             }
                         } else {
-                            console.log("Não encontrado usuário!")
                             res.redirect("/login");
                         }
                     }).catch(error => {
                         console.log("Não foi possível logar usuário async!\n" + error)
                     })
                 } else {
-                    console.log(error.array());
+                    console.log(error);
                     res.redirect("/login");
                 }
             } else {
-                res.render("login/login");
+                res.render("login/login", { csrfToken: req.csrfToken() });
             }
         } catch (error) {
+            req.flash("error", "Não foi possível continuar com a operação devido a um erro, tente novamente !");
             console.log("Não foi possível logar usuário sync!\n" + error)
         }
     }
