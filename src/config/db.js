@@ -1,9 +1,11 @@
 
 
+console.log(`Hostname: ${process.env.DB_HOST}, USER: ${process.env.DB_USER}, PWD: ${process.env.DB_PASS}`)
+
 module.exports = {
-    HOST: "localhost",
-    USER: "root",
-    PASSWORD: "aS123$_cd", // senha aleatória.
+    HOST: process.env.DB_HOST,
+    USER: process.env.DB_USER,
+    PASSWORD: process.env.DB_PASS, 
     DB: "blog",
     dialect: "mysql"
   };

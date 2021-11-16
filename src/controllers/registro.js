@@ -1,5 +1,6 @@
 const bcrypt = require("bcrypt");
 const { validationResult } = require("express-validator");
+const flash = require('connect-flash');
 
 
 
@@ -10,12 +11,9 @@ module.exports = (application) => {
         try {
             console.log(req.method)
             if (req.method == "POST") {
-                const { nome, email, senha, confirmar_senha } = req.body;   
-                console.log(nome,email,senha)
+                const { nome, email, senha } = req.body;   
                 const errors = validationResult(req);
                 if (errors.isEmpty()) { 
-                    console.log("Usuario create",usuario)
-
                     usuario.criar({
                         nome,
                         email,

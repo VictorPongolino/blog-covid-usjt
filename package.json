@@ -18,7 +18,9 @@
   "homepage": "https://github.com/VictorPongolino/blog-covid-usjt#readme",
   "dependencies": {
     "bcrypt": "^5.0.1",
+    "connect-flash": "^0.1.1",
     "consign": "^0.1.6",
+    "dotenv": "^10.0.0",
     "ejs": "^3.1.6",
     "express": "^4.17.1",
     "express-session": "^1.17.2",
