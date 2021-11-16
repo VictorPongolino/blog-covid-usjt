@@ -1,4 +1,4 @@
-const {body, check} = require('express-validator');
+const {check} = require('express-validator');
 
 module.exports = (application) => {
     const usuario = application.src.controllers.usuario;

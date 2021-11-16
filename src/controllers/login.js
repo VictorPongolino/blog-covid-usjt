@@ -1,51 +1,32 @@
 const bcrypt = require("bcrypt");
 const { validationResult } = require("express-validator");
 
-
-
-module.exports = (application) => {
-    const usuario = application.src.models.usuario;
-
+module.exports = (application) => { 
     this.login = async (req, res) => {
         try {
+            const usuario = application.src.controllers.usuario; // Auto-Loader não carregou mas neste ponto ele carregou.
             if (req.method == "POST") {
                 const { email, senha } = req.body;
                 const error = validationResult(req);
                 if (error.isEmpty()) {
-                    usuario.findOne({ 
-                        where: {
-                            email
-                        }
-                    }).then(user => {
-                        if (user != undefined) {
-                            const resultadoHash = bcrypt.compareSync(senha, user.senha);
-                            if (resultadoHash != false) {
-                                req.session.user = {
-                                    id: user.id,
-                                    email,
-                                }
-
-                                console.log("Logado com sucesso!")
-
-                            } else {
-                                res.redirect("/login");
-                            }
+                    usuario.findUserByEmail(email).then(user => {
+                        if (user !== null) {
+                            console.log("Encontrado!")
                         } else {
+                            console.log("Não encontrado usuário!")
                             res.redirect("/login");
                         }
-                    }).catch(error => {
-                        console.log("Não foi possível logar usuário!\n" + error)
-                    });
+                    })
                 } else {
+                    console.log(error.array());
                     res.redirect("/login");
                 }
             } else {
-                res.redirect("/login");
+                res.render("login/login");
             }
         } catch (error) {
             console.log("Não foi possível logar usuário!\n" + error)
         }
     }
-
     return this;
 }
