@@ -17,7 +17,8 @@ module.exports = (application) => {
                                     id: user.id,
                                     email: user.email
                                 }
-                                console.log("Logado com sucesso!");
+                                
+                                res.redirect("/");
                             } else {
                                 req.flash("error", "Usuário ou senha incorretos !");
                                 res.redirect("/login");

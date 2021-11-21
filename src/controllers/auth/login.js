@@ -1,11 +1,12 @@
 
 module.exports = (application) => {
-    const user = application.src.controllers.usuario;
+
     this.userLoggedMiddleware = function(req, res, next) {
+        const user = application.src.controllers.usuario;
         try {
-            let userId = req.session.user;
-            if (userId) {
-                user.get(userId)
+            let userSession = req.session.user;
+            if (userSession) {
+                user.get(userSession.id)
                     .then(usuario => {
                         if (usuario) {
                             return next();

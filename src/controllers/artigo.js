@@ -53,36 +53,43 @@ module.exports = (application) => {
 
 
     this.criar = async (req, res) => {
-        res.render("artigo/criar", { csrfToken: req.csrfToken() });
+        res.render("artigo/criar", { 
+            csrfToken: req.csrfToken(), 
+            error : req.flash("error") 
+        });
     }
 
     this.enviar = async (req, res) => {
         try {
             const { titulo, descricao, textarea_blog } = req.body;
             const errors = validationResult(req);
-            if (errors.isEmpty() == false) {
-                console.log(errors.array()); //  TODO: Criar um erro por flash (cookies)     
-                return;
-            }
+            if (errors.isEmpty()) {
+                artigo.create({
+                    /* Recomenda-se a nomeação explícita dos nomes das colunas no JSON para evitar problemas caso haver alteração 
+                        no nome das variáveis no HTML 
+                    */
 
-            artigo.create({
-                /* Recomenda-se a nomeação explícita dos nomes das colunas no JSON para evitar problemas caso haver alteração 
-                    no nome das variáveis no HTML 
-                */
-
-                titulo: titulo,
-                descricao: descricao,
-                slug: slugify(titulo, { lower: true, trim: true }),
-                body: textarea_blog,
-            })
+                    titulo: titulo,
+                    descricao: descricao,
+                    slug: slugify(titulo, { lower: true, trim: true }),
+                    body: textarea_blog,
+                })
                 .then(valor => {
                     res.redirect("/");
                 }).catch(error => {
+                    req.flash("error", "Falha na criação do artigo, tente novamente !");
                     console.log("Não foi possível criar um artigo (async)\n" + error)
-                    res.sendStatus(500);
-                });
 
+                    res.sendStatus(500);
+                    res.redirect("/");
+                });
+            } else {
+                req.flash("error", errors.array().map(x => x.msg));
+                res.sendStatus(500);
+                res.redirect("/");
+            }
         } catch (error) {
+            req.flash("error", "Falha na criação do artigo, tente novamente !");
             console.log("Não foi possível criar um artigo (sync)\n" + error)
             res.sendStatus(500);
         }
@@ -91,18 +98,12 @@ module.exports = (application) => {
     this.update = async (req, res) => {
         try {
             const { id } = req.params;
-            artigo.update(req.body,
+            return artigo.update(req.body,
             {
                 limit: 1,
                 where: {
                     id
                 }
-            }).then(resultado => {
-                res.sendStatus(200);
-                /* TODO */
-            }).catch(erro => {
-                console.error(`Falha na tentativa de atualizar um artigo (async) ${erro}`);
-                res.sendStatus(500);
             })
         } catch (error) {
             console.error(`Falha na tentativa de atualizar um artigo (sync) ${error}`);
@@ -114,7 +115,7 @@ module.exports = (application) => {
     this.deletar = async (req, res) => {
         try {
             const { id } = req.params;
-            artigo.update({
+            return artigo.update({
                 status: "DELETADO", 
             },
             {
@@ -122,12 +123,6 @@ module.exports = (application) => {
                 where: {
                     id
                 }
-            }).then(resultado => {
-                res.sendStatus(200);
-                /* TODO */
-            }).catch(erro => {
-                console.error(`Falha na tentativa de deletar um artigo (async) ${erro}`);
-                res.sendStatus(500);
             })
         } catch (error) {
             console.error(`Falha na tentativa de deletar um artigo (sync) ${error}`);

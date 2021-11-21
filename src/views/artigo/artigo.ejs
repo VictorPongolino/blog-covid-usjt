@@ -22,6 +22,16 @@
     <% } else { %>
         OPS, não foi encontrado nenhum artigo para ser exibido!
     <% } %>
+
+    <% if (locals.error && locals.error.length > 0) { %>
+        <div class="alert alert-danger" role="alert">
+        <% error.forEach(er => { %>
+            - <%= er %>
+            <br>
+        <% }) %> 
+        </div>
+    <% } %>
+
 </body>
 </html>
 
