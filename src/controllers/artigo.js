@@ -81,17 +81,16 @@ module.exports = (application) => {
                     console.log("Não foi possível criar um artigo (async)\n" + error)
 
                     res.sendStatus(500);
-                    res.redirect("/");
+                    res.redirect("/artigo/criar");
                 });
             } else {
                 req.flash("error", errors.array().map(x => x.msg));
-                res.sendStatus(500);
-                res.redirect("/");
+                res.redirect("/artigo/criar");
             }
         } catch (error) {
             req.flash("error", "Falha na criação do artigo, tente novamente !");
             console.log("Não foi possível criar um artigo (sync)\n" + error)
-            res.sendStatus(500);
+            res.redirect("/artigo/criar");
         }
     }
 

@@ -1,28 +1,34 @@
+
+
 <!DOCTYPE html>
 <html lang="pt-br">
-<head>
-    <%- include('./../partials/header'); %>
-    <%- include('./../partials/bootstrap_css'); %>
-    <% if (locals.artigo) { %>
-        <title><%= artigo.titulo | Blog do Covid %></title>
-    <% } else { %>
-        <title>Blog do COVID</title>
-    <% } %>
-</head>
-<body>
-    <!-- ESTE É UMA PÁGINA EM FASE DE DESENVOLVIMENTO -->
-    <% if (locals.artigo) { %>
-        <h1><%= artigo.titulo %></h1>
-        <p><%= artigo.descricao %></p>
-        <br/>
-        <br/>
-        <br/>
-        <%= artigo.body %>
-    <% } else { %>
-        OPS, não foi encontrado nenhum artigo para ser exibido!
-    <% } %>
+    <head>
+        <%- include('./../partials/header'); %>
+        <%- include('./../partials/bootstrap_css'); %>
+        <% if (locals.artigo) { %>
+            <title><%= artigo.titulo %> | Blog do Covid</title>
+        <% } else { %>
+            <title>Blog do COVID</title>
+        <% } %>
+    </head>
+    <body>
+        <%- include('./../partials/navbar'); %>
+        
+        <div class="container mt-5">
+            <div class="row">
+                <article>
+                    <header class="mb-4"> 
+                        <h1 class="fw-bolder mb-1"><%= artigo.titulo %></h1>
+                        <div class="text-muted fst-italic mb-2">Criado por</div>
+                    </header>
+                    <section class="mb-5" style="text-align: justify; text-justify: inter-word;">
+                        <%- artigo.body %>
+                    </section>
+                </article>
+            </div>
+        </div>
 
-    <%- include('./../partials/bootstrap_script'); %>
-</body>
+        <%- include('./../partials/footer'); %>
+        <%- include('./../partials/bootstrap_script'); %>
+    </body>
 </html>
-

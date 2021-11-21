@@ -5,7 +5,7 @@ module.exports = (application) => {
         return function(req, res, next) {
             const roleController = application.src.controllers.roles;
             try {
-                roleToCheck = roleToCheck.upper().trim();
+                roleToCheck = roleToCheck.toUpperCase().trim();
                 let usuario = req.session.user;
                 if (usuario) {
                     roleController.getByUserId(usuario.id)
