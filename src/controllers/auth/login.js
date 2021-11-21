@@ -10,6 +10,7 @@ module.exports = (application) => {
                         if (usuario) {
                             return next();
                         } else {
+                            req.flash("error", "Logue-se primeiro para acessar este conteúdo!");
                             res.redirect("/login");
                         }
                     })
@@ -17,6 +18,7 @@ module.exports = (application) => {
                         return next(error);
                     })
             } else {
+                req.flash("error", "Logue-se primeiro para acessar este conteúdo!");
                 res.redirect("/login");
             }
         } catch (error) {

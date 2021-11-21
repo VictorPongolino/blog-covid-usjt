@@ -21,7 +21,8 @@ module.exports = (application) => {
                     .custom(valor => {
                         return usuario.findUserByEmail(valor).then(valor => {
                             if (valor !== null) {
-                                return Promise.reject(`Email '${valor}' já existe!'`)
+                                let user = valor.dataValues;
+                                return Promise.reject(`Email '${user.email}' já existe!'`)
                             }
 
                             return true;
