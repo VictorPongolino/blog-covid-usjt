@@ -15,7 +15,6 @@ module.exports = (application) => {
 
     this.findUserByEmail = async (email) => {
         try {
-            console.log("Buscando por " + email)
             return usuario.findOne({
                 where: {
                    email

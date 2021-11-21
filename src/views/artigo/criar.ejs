@@ -38,6 +38,15 @@
                 <button type="submit" class="btn btn-success">Enviar</button>
                 <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
             </form>
+
+            <% if (locals.error && locals.error.length > 0) { %>
+                <div class="alert alert-danger" role="alert">
+                <% error.forEach(er => { %>
+                    - <%= er %>
+                    <br>
+                <% }) %> 
+                </div>
+            <% } %>
           </div>
         </div>
       </div>

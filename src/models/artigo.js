@@ -36,23 +36,24 @@ const Artigo = (application) => {
             values: ['APROVADO', 'EM_ANALISE', 'REPROVADO', 'OCULTADO', 'DELETADO'],
             defaultValue: 'EM_ANALISE',
             allowNull: false,
-        }
+        },
 
+        criado_em: {
+            type: Sequelize.DATE, 
+            defaultValue: Sequelize.NOW 
+        },
 
+        editado_em: {
+            type: Sequelize.DATE, 
+            defaultValue: Sequelize.NOW 
+        },
+    },
+    {
+        createdAt: false,
+        updatedAt: false,
     });
 
     return this.artigo;
 }
 
 module.exports = Artigo;
-
-/*
-    - CAPA - [TODO]
-    - TITULO
-    - DESCRIÇÃO
-    - DATA DE CRIAÇÃO [SEQUELIZE DEFAULT]
-    - DATA DE ATUALIZAÇÃO [SEQUELIZE DEFAULT]
-    - STATUS 
-    - BODY
-    - AUTOR
-*/

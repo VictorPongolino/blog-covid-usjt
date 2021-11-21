@@ -3,8 +3,7 @@ const { Sequelize } = require('sequelize');
 const Usuario = (application) => {
     const sequelize = application.src.config.sequelize;
     const artigo = application.src.models.artigo;
-    console.log("Pegando de Usuário",application.src.models)
-
+    
     this.usuario = sequelize.define("usuario", {
 
         id: { 
@@ -30,6 +29,11 @@ const Usuario = (application) => {
         },
 
         status: { 
+            type: Sequelize.INTEGER, 
+            defaultValue: 0
+        },
+
+        admin: { 
             type: Sequelize.INTEGER, 
             defaultValue: 0
         },
