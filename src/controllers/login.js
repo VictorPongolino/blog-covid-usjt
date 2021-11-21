@@ -19,20 +19,26 @@ module.exports = (application) => {
                                 }
                                 console.log("Logado com sucesso!");
                             } else {
+                                req.flash("error", "Usuário ou senha incorretos !");
                                 res.redirect("/login");
                             }
                         } else {
+                            req.flash("error", "Usuário ou senha incorretos !");
                             res.redirect("/login");
                         }
                     }).catch(error => {
+                        req.flash("error", "Não foi possível continuar com a operação devido a um erro, tente novamente !");
                         console.log("Não foi possível logar usuário async!\n" + error)
                     })
                 } else {
-                    console.log(error);
+                    req.flash("error", error.array().map(x => x.msg));
                     res.redirect("/login");
                 }
             } else {
-                res.render("login/login", { csrfToken: req.csrfToken() });
+                res.render("login/login", { 
+                    csrfToken: req.csrfToken(), 
+                    error : req.flash("error")
+                });
             }
         } catch (error) {
             req.flash("error", "Não foi possível continuar com a operação devido a um erro, tente novamente !");

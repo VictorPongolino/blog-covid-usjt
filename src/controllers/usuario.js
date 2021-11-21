@@ -3,8 +3,7 @@ module.exports = (application) => {
 
     this.get = async (id) => {
         try {
-            return usuario.findAll({
-                limit: 1,
+            return usuario.findOne({
                 where: {
                    id
                 } 

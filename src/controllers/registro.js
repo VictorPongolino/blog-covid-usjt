@@ -33,18 +33,22 @@ module.exports = (application) => {
                             }
                         }).catch(error => {
                             console.log("Não foi possível registrar usuário em async!\nERRO:"+error);
+                            req.flash("error", "Não foi possível registrar o seu usuário, tente novamente!");
                             res.redirect("/registrar");
                         })
                     
                 } else {
-                    console.log(errors.array());
+                    req.flash("error", errors.array().map(x => x.msg));
                     res.redirect("/registrar");
                 }
             } else {
-                res.render("login/registro", { csrfToken: req.csrfToken() });
+                res.render("login/registro", { 
+                    csrfToken: req.csrfToken(), 
+                    error : req.flash("error") 
+                });
             }
         } catch (error) {
-            console.log("Não foi possível registrar usuário em sync!\nERRO:"+error);
+            req.flash("error", "Não foi possível registrar o seu usuário, tente novamente!");
             res.redirect("/registrar");
         }
     }
