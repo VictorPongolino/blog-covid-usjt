@@ -1,29 +1,35 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <%- include('./../partials/header'); %>
+        <%- include('./../partials/bootstrap_css'); %>
+    </head>
+    <body>
+        
+        <form action="/registrar" method="post">
+        <h6>Página WIP - Working in progress !</h6>
+        <br>
+        <input type="text" name="nome" id="nome">
+        <br>
+        <input type="email" name="email" id="email">
+        <br>
+        <input type="password" name="senha" id="senha">
+        <br>
+        <input type="password" name="confirmar_senha" id="senha">
+        <br>
+        <button type="submit"></button>
+        <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
+        
+        <% if (locals.error && locals.error.length > 0) { %>
+            <div class="alert alert-danger" role="alert">
+            <% error.forEach(er => { %>
+                - <%= er %>
+                <br>
+            <% }) %> 
+            </div>
+        <% } %>
 
+        <%- include('./../partials/bootstrap_script'); %>
+        </body>
+    </html>
 
-<!-- PÁGINA DE TESTE -->
-
-<form action="/registrar" method="post">
-    <h6>Página WIP - Working in progress !</h6>
-    <br>
-    <input type="text" name="nome" id="nome">
-    <br>
-    <input type="email" name="email" id="email">
-    <br>
-    <input type="password" name="senha" id="senha">
-    <br>
-    <input type="password" name="confirmar_senha" id="senha">
-    <br>
-    <button type="submit"></button>
-    <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
-</form>
-
-	<% if (locals.error && locals.error.length > 0) { %>
-        <div class="alert alert-danger" role="alert">
-        <% error.forEach(er => { %>
-            - <%= er %>
-            <br>
-        <% }) %> 
-        </div>
-    <% } %>
-
-<!-- PÁGINA DE TESTE -->

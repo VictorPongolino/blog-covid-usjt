@@ -1,61 +1,56 @@
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-
-    <link href="/css/bootstrap/bootstrap.min.css" rel="stylesheet" >
+    <%- include('./../partials/header'); %>
+    <%- include('./../partials/bootstrap_css'); %>
 </head>
 <body>
     <div class="container mt-4 mb-4">
         <div class="row justify-content-md-center">
-          <fo class="col-md-12 col-lg-8">
-            <h1 class="h2 mb-4">Criação de Artigo</h1>
-            <form method="post">
-                <div class="form-group">
-                    <label for="titulo">Título</label>
-                    <input type="text" name="titulo" class="form-control" id="titulo" aria-describedby="tituloHelper" placeholder="Título do Blog">
-                    <small id="tituloHelper" class="form-text text-muted">Título deve ser objetivo e mais simplificado possível</small>
-                </div>
+            <div class="col-md-12 col-lg-8">
+                <h1 class="h2 mb-4">Criação de Artigo</h1>
+                <form method="post">
+                    <div class="form-group">
+                        <label for="titulo">Título</label>
+                        <input type="text" name="titulo" class="form-control" id="titulo" aria-describedby="tituloHelper" placeholder="Título do Blog">
+                        <small id="tituloHelper" class="form-text text-muted">Título deve ser objetivo e mais simplificado possível</small>
+                    </div>
 
-                <div class="form-group">
-                    <label for="textarea_descricao">Descrição</label>
-                    <textarea class="form-control" name="descricao" id="textarea_descricao" aria-describedby="textareaHelper" rows="3"></textarea>
-                    <small id="textareaHelper" class="form-text text-muted">Breve descrição do que o usuário encontrará neste artigo</small>
-                </div>
+                    <div class="form-group">
+                        <label for="textarea_descricao">Descrição</label>
+                        <textarea class="form-control" name="descricao" id="textarea_descricao" aria-describedby="textareaHelper" rows="3"></textarea>
+                        <small id="textareaHelper" class="form-text text-muted">Breve descrição do que o usuário encontrará neste artigo</small>
+                    </div>
 
-                <div class="form-group">
-                    <textarea id="textarea_blog" name="textarea_blog" rows="20"></textarea>
-                </div>
+                    <div class="form-group">
+                        <textarea id="textarea_blog" name="textarea_blog" rows="20"></textarea>
+                    </div>
 
-                <p>Quando enviado, a administração irá validar o artigo para ter visibilidade para o público. Entretanto,
-                    Você ainda poderá edita-lo.
-                </p>
-                
-                <button type="submit" class="btn btn-success">Enviar</button>
-                <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
-            </form>
+                    <p>Quando enviado, a administração irá validar o artigo para ter visibilidade para o público. Entretanto,
+                        Você ainda poderá edita-lo.
+                    </p>
+                    
+                    <button type="submit" class="btn btn-success">Enviar</button>
+                    <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
+                </form>
 
-            <% if (locals.error && locals.error.length > 0) { %>
-                <div class="alert alert-danger" role="alert">
-                <% error.forEach(er => { %>
-                    - <%= er %>
-                    <br>
-                <% }) %> 
-                </div>
-            <% } %>
-          </div>
+                <% if (locals.error && locals.error.length > 0) { %>
+                    <div class="alert alert-danger" role="alert">
+                    <% error.forEach(er => { %>
+                        - <%= er %>
+                        <br>
+                    <% }) %> 
+                    </div>
+                <% } %>
+            </div>
         </div>
-      </div>
+    </div>
     
 </body>
 </html>
 
-<script src="/js/jquery.js"></script>
-<script src="/js/bootstrap/bootstrap.min.js"></script>
+<%- include('./../partials/bootstrap_script'); %>
 
 <script src="/js/tinymce/tinymce.min.js"></script>
 <script>

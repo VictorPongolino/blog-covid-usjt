@@ -5,9 +5,10 @@ module.exports = function(application) {
     const ArtigoValidator = application.src.controllers.validator.artigo;
 
     const loggingChecking = application.src.controllers.auth.login;
+    const roleRestrinctions = application.src.controllers.auth.role;
 
-    application.get('/artigo/criar',  loggingChecking.userLoggedMiddleware, controllerArtigo.criar);
-    application.post('/artigo/criar', loggingChecking.userLoggedMiddleware, checkSchema(ArtigoValidator), controllerArtigo.enviar);
+    application.get('/artigo/criar',  loggingChecking.userLoggedMiddleware, roleRestrinctions.verificarRestrincao("CRIAR_ARTIGO"), controllerArtigo.criar);
+    application.post('/artigo/criar', loggingChecking.userLoggedMiddleware, roleRestrinctions.verificarRestrincao("CRIAR_ARTIGO"), checkSchema(ArtigoValidator), controllerArtigo.enviar);
 
     application.get('/artigo/:slug', controllerArtigo.getBySlug);
 }
