@@ -13,9 +13,9 @@ const sequelize = new Sequelize(dbConfig.DB, dbConfig.USER, dbConfig.PASSWORD, {
 
 sequelize.sync()
     .then(info => {
-        console.log("Conectado com sucesso!");
+        console.log("[CONNECTION]: Conectado com sucesso!");
     }).catch(error => {
-        console.log("Falha ao estabelecer conexão " + error);
+        console.error("[CONNECTION]: Falha ao estabelecer conexão " + error);
 });
 
 module.exports = function() {
