@@ -2,6 +2,12 @@ const bcrypt = require("bcrypt");
 const { validationResult } = require("express-validator");
 
 module.exports = (application) => { 
+
+    this.logout = async (req, res) => {
+        req.session.destroy();
+        res.redirect("/");
+    }
+
     this.login = async (req, res) => {
         try {
             const usuario = application.src.controllers.usuario; // Auto-Loader não carregou mas neste ponto ele carregou.

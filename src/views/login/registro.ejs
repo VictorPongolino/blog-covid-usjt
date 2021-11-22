@@ -25,6 +25,16 @@
 		<div class="form-group">
             <input type="password" class="form-control" name="confirmar_senha" placeholder="Confirme a sua senha" required="required">
         </div>        
+
+        <% if (locals.error && locals.error.length > 0) { %>
+            <div class="alert alert-danger" role="alert">
+            <% error.forEach(er => { %>
+                - <%= er %>
+                <br>
+            <% }) %> 
+            </div>
+        <% } %>
+
 		<div class="form-group">
             <button type="submit" class="btn btn-success btn-lg btn-block">Registrar</button>
         </div>
@@ -33,14 +43,7 @@
     </form>
 	<div class="text-center">Já tem uma conta? <a href="/login">Logue-se</a></div>
 
-    <% if (locals.error && locals.error.length > 0) { %>
-        <div class="alert alert-danger" role="alert">
-        <% error.forEach(er => { %>
-            - <%= er %>
-            <br>
-        <% }) %> 
-        </div>
-    <% } %>
+    
 </div>
     <%- include('./../partials/bootstrap_script'); %>
 </body>

@@ -7,8 +7,8 @@ module.exports = (application) => {
             try {
                 roleToCheck = roleToCheck.trim();
                 let usuario = req.session.user;
-                if (usuario) {
-                    roleController.getByUserId(usuario.id)
+                if (usuario) { 
+                    roleController.isUserRestrictedByRole(usuario.id, roleToCheck) 
                         .then(role => {
                             if (role) {
                                 req.flash("error", "Não tem permissão suficiente!");
