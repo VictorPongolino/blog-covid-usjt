@@ -17,7 +17,9 @@ module.exports = (application) => {
                 ]
             }).then(resultado => {
                 res.render("home/index", {
-                    noticias: resultado
+                    noticias: resultado,
+                    isLogado: req.session.user && req.session.user.id > 0,
+                    // req.session.user?.id (por algum motivo não funciona)
                 });
             }).catch(erro => {
                 console.error(`Falha no retorno dos artigos (async) ${erro}`);

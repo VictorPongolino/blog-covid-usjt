@@ -2,18 +2,17 @@ module.exports = (application) => {
     this.get = async(req, res) => {
         try {
             const usuarioDao = application.src.dao.usuario;
-            const usuarioRestrincoes = application.src.dao.usuarioRestrincoes;
-
+            
+            var staff = await usuarioDao.findUserById(req.session.user.id);
             let usuario = await usuarioDao.findUserByEmail(req.params.email);
-            req.session.edit = usuario;
+            req.session.banir = usuario;
             if (usuario) {
-                let bannedInfo = await usuarioRestrincoes.isUserRestrictedByRole(usuario.id, "LOGIN");
-
-                res.render("admin/editarUsuario", { 
+                
+                res.render("admin/banirUsuario", { 
                     csrfToken: req.csrfToken(), 
                     error : req.flash("error"),
                     usuario,
-                    bannedInfo
+                    staff,
                 });
             }
         }
@@ -24,20 +23,23 @@ module.exports = (application) => {
  
     this.post = async(req, res) => {
         try {
-            const { nome, email } = req.body;
-            const old_user_data = req.session.edit;
+            const { restrito_em, motivo, nome_staff } = req.body;
+            const old_user_data = req.session.banir;
             if (old_user_data) {
-                const usuarioDao = application.src.dao.usuario;
-
-                usuarioDao.update(old_user_data.id, {
-                    nome,
-                    email
+                const usuarioRestrincoesDao = application.src.dao.usuarioRestrincoes;
+ 
+                usuarioRestrincoesDao.criar({
+                    restrito_em : "LOGIN",
+                    motivo,
+                    staff: nome_staff,
+                    tickdesban: 0,
+                    usuarioId: old_user_data.id,
                 })
  
-                console.log("Atualizado com sucesso!")
+                console.log("Banido com sucesso !")
 
                 req.flash("sucesso", "Atualizado com sucesso!");
-                res.redirect(email);
+                res.redirect(old_user_data.email);
             } else {
                 req.flash("error", ["Não foi possível encontrar o usuário a ser editado!"]);
                 console.log("Não há sessão referente ao usuário a ser atualizado, ataque?")

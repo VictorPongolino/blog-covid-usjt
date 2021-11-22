@@ -10,6 +10,15 @@ const Usuario = (application) => {
         }) 
     }
 
+    this.findUserById = async (id) => {
+        return usuario.findOne({
+            where: {
+                id
+            },
+            raw: true
+        });
+    }
+
     this.findUserByEmail = async (email) => {
         return usuario.findOne({
             where: {

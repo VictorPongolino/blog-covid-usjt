@@ -143,7 +143,7 @@ $(document).ready(function(){
                     <div class="row">
                         <div class="col-sm-8"><h2>Visualizando <b><a href="/admin/usuario/<%= usuario.email %>"><%= usuario.nome %> (<%= usuario.id %>)</a></b></h2></div>
                         <div class="col-sm-4">
-                            <button type="button" class="btn btn-danger">Banir</button>
+                            <a href="/admin/usuario/banir/<%= usuario.email %>"><button type="button" class="btn btn-danger">Banir</button></a>
                             <a href="/admin/usuario/editar/<%= usuario.email %>"><button type="button" class="btn btn-warning">Editar</button></a> 
                             <a href="/admin/usuario"><button type="button" class="btn btn-success">Voltar</button></a>
                         </div>
