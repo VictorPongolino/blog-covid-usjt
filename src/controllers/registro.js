@@ -20,8 +20,6 @@ module.exports = (application) => {
                     })
                         .then(valor => { 
                             if (valor) {
-                                console.log("Registrado com sucesso!");
-                            
                                 req.session.user = {
                                     id: usuario.id,
                                     email

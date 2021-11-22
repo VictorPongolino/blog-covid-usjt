@@ -5,6 +5,7 @@ module.exports = (application) => {
     this.login = async (req, res) => {
         try {
             const usuario = application.src.controllers.usuario; // Auto-Loader não carregou mas neste ponto ele carregou.
+            const role = application.src.controllers.roles;
             if (req.method == "POST") {
                 const { email, senha } = req.body;
                 const error = validationResult(req);
@@ -13,12 +14,23 @@ module.exports = (application) => {
                         if (user !== null) {
                             const isSenhaIgual = bcrypt.compareSync(senha, user.senha);
                             if (isSenhaIgual) {
-                                req.session.user = {
-                                    id: user.id,
-                                    email: user.email
-                                }
-                                
-                                res.redirect("/");
+                                role.isUserRestrictedByRole(user.id, "LOGIN")
+                                    .then(getRole => {
+                                        if (getRole) {
+                                            req.flash("error", "Sua conta encontra-se bloqueada, entre suporte para mais info !");
+                                            res.redirect("/login");
+                                        } else {
+                                            req.session.user = {
+                                                id: user.id,
+                                                email: user.email
+                                            }
+
+                                            res.redirect("/");
+                                        }
+                                    })
+                                    .catch(error => {
+                                        res.redirect("/");
+                                    })
                             } else {
                                 req.flash("error", "Usuário ou senha incorretos !");
                                 res.redirect("/login");

@@ -1,35 +1,84 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-    <head>
-        <%- include('./../partials/header'); %>
-        <%- include('./../partials/bootstrap_css'); %>
-    </head>
-    <body>
-        
-        <form action="/registrar" method="post">
-        <h6>Página WIP - Working in progress !</h6>
-        <br>
-        <input type="text" name="nome" id="nome">
-        <br>
-        <input type="email" name="email" id="email">
-        <br>
-        <input type="password" name="senha" id="senha">
-        <br>
-        <input type="password" name="confirmar_senha" id="senha">
-        <br>
-        <button type="submit"></button>
-        <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
-        
-        <% if (locals.error && locals.error.length > 0) { %>
-            <div class="alert alert-danger" role="alert">
-            <% error.forEach(er => { %>
-                - <%= er %>
-                <br>
-            <% }) %> 
-            </div>
-        <% } %>
+<head>
+    <%- include('./../partials/header'); %>
+    <%- include('./../partials/bootstrap_css'); %>
+    
+    <link rel="stylesheet" href="/css/registro/styles.css">
+    
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,700">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+<div class="signup-form">
+    <form action="/registrar" method="post">
+		<p class="hint-text">Criar uma conta.</p>
+        <div class="form-group">
+        	<input type="text" class="form-control" name="nome" placeholder="Seu nome" required="required">
+        </div>
+        <div class="form-group">
+        	<input type="email" class="form-control" name="email" placeholder="Email" required="required">
+        </div>
+		<div class="form-group">
+            <input type="password" class="form-control" name="senha" placeholder="Senha" required="required">
+        </div>
+		<div class="form-group">
+            <input type="password" class="form-control" name="confirmar_senha" placeholder="Confirme a sua senha" required="required">
+        </div>        
+		<div class="form-group">
+            <button type="submit" class="btn btn-success btn-lg btn-block">Registrar</button>
+        </div>
 
-        <%- include('./../partials/bootstrap_script'); %>
-        </body>
-    </html>
+        <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
+    </form>
+	<div class="text-center">Já tem uma conta? <a href="/login">Logue-se</a></div>
+
+    <% if (locals.error && locals.error.length > 0) { %>
+        <div class="alert alert-danger" role="alert">
+        <% error.forEach(er => { %>
+            - <%= er %>
+            <br>
+        <% }) %> 
+        </div>
+    <% } %>
+</div>
+    <%- include('./../partials/bootstrap_script'); %>
+</body>
+</html>
+
+        <!-- <form action="/registrar" method="post">
+            <div class="container">
+                <div class="row justify-content-center">
+                    
+
+                    <div class="row">
+
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" class="form-control" id="email" name="email">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="nome">Seu nome</label>
+                            <input type="text" class="form-control-file" id="nome" name="nome">
+                        </div>
+                        <div class="col">
+                            <div class="form-group">
+                                <label for="senha">Senha</label>
+                                <input type="password" class="form-control-file" id="senha" name="senha">
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-group">
+                                <label for="confirmar_senha">Confirmar Senha</label>
+                                <input type="password" class="form-control-file" id="confirmar_senha" name="confirmar_senha">
+                            </div>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary mb-2">Registrar</button>
+                    <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
+                </div>
+            </div>
+        </form> -->
 

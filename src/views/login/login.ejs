@@ -1,83 +1,53 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-	<head>
-		<%- include('./../partials/header'); %>
+<head>
 
-		<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-		
-        <!-- <%- include('./../partials/bootstrap_css'); %> -->
+<title>Login</title>
 
-		<link rel="stylesheet" href="/css/login/styles.css">
+<%- include('./../partials/header'); %>
+<%- include('./../partials/bootstrap_css'); %>
 
-		<title>Login</title>
-	</head>
+<link rel="stylesheet" href="/css/registro/styles.css">
 
-	<body>	
-		<div class="container">
-			<div class="row">
-				<div class="col-md-6 col-md-offset-3">
-					<div class="panel panel-login">
-						<div class="panel-body">
-							<div class="row">
-								<div class="col-lg-12">
-									<form id="login-form" action="/login" method="post" role="form" style="display: block;">
-										
-										<div class="form-group">
-											<label for="email">Conta</label>
-											<input type="text" name="email" id="email" tabindex="1" class="form-control" placeholder="Email" value="">
-										</div>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,700">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
-										<div class="form-group">
-											<label for="senha">Senha</label>
-											<input type="password" name="senha" id="senha" tabindex="2" class="form-control" placeholder="Senha">
-										</div>
-										
-										<!-- <div class="form-group text-center">
-											<input type="checkbox" tabindex="3" class="" name="remember" id="remember">
-											<label for="remember"> Manter sessão</label>
-										</div> -->
+</head>
+<body>
+<div class="signup-form">
+    <form action="/login" method="post">
+		<p class="hint-text">Logar-se</p>
 
-										<div class="form-group">
-											<div class="row">
-												<div class="col-sm-6 col-sm-offset-3">
-													<input type="submit" name="logar" id="logar" tabindex="4" class="form-control btn btn-login" value="Logar">
-													<input type="hidden" name="_csrf" value="<%= csrfToken %>" />
-													
-												</div>
-											</div>
-										</div>
+        <div class="form-group">
+        	<input type="email" class="form-control" name="email" placeholder="Email" required="required">
+        </div>
 
-										<div class="form-group">
-											<div class="row">
-												<div class="col-lg-12">
-													<div class="text-center">
-														<a href="" tabindex="5" class="forgot-password">Esqueceu sua senha?</a>
-													</div>
-												</div>
-											</div>
-										</div>
-									</form>
+		<div class="form-group">
+            <input type="password" class="form-control" name="senha" placeholder="Senha" required="required">
+        </div>   
 
-									
-									<% if (locals.error && locals.error.length > 0) { %>
-										<div class="alert alert-danger" role="alert">
-										<% error.forEach(er => { %>
-											- <%= er %>
-											<br>
-										<% }) %> 
-										</div>
-									<% } %>
-
-
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
+		<% if (locals.error && locals.error.length > 0) { %>
+			<div class="alert alert-danger" role="alert">
+			<% error.forEach(er => { %>
+				- <%= er %>
+				<br>
+			<% }) %>     
 			</div>
-		</div>
+		<% } %>
 
-        <%- include('./../partials/bootstrap_script'); %>
+		<div class="form-group">
+            <button type="submit" class="btn btn-success btn-lg btn-block">Logar</button>
+        </div>
 
-	</body>
+        <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
+    </form>
+	<div class="text-center">Sem conta? <a href="/login">Logar-se</a></div>
+
+</div>
+    <%- include('./../partials/bootstrap_script'); %>
+
+</body>
 </html>
+
+
+
